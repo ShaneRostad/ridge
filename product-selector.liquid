@@ -1,0 +1,19 @@
+{{ 'product-selector.css' | asset_url | stylesheet_tag }}
+
+{% assign product_group = product.metafields.custom.product_group.value.products.value %}
+
+{% if product_group != blank %}
+  <div class="variant-title">
+    <span class="variant-title-label">Color:</span>
+    {{ product.title }}
+  </div>
+  <div class="variant-options" style="opacity: 0;">
+    {% for item in product_group %}
+      <div class="variant-option {% if item.handle == product.handle %}active{% endif %}" data-href="{{ item.url }}"><img src="{{ item.featured_image | img_url: '200x' }}" width="100" height="100" /></div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+</style>
+
+<script src="{{ 'product-selector.js' | asset_url }}" defer="defer"></script>
